@@ -48,11 +48,7 @@ const COMPETITIONS_DATA = [
     name: "Single Board Cluster Comp",
     status: "active",
     subtitle: "Hosted by UCSD",
-    specs: {
-      "Budget": "$6,000.00 USD",
-      "PowerLim": "250 Watts (Strict)",
-      "Goal": "Maximize FLOPs/Watt"
-    }
+    details: "Constraints: $6k Spending Cap, 250W Power Limit. We need hardware for this!!!"
   },
   {
     id: "indie25",
@@ -77,7 +73,7 @@ const HARDWARE_DATA = {
     { model: "Dell Poweredge R510", quantity: 1, status: "online", location: "E2 207" }
   ],
   total_nodes: 5,
-  system_health: "nominal"
+  system_health: "could be better"
 };
 
 // --- Helper Functions ---
@@ -153,35 +149,35 @@ export default function App() {
       case 'home':
         return (
           <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <pre className="text-yellow-400 font-bold text-[8px] sm:text-xs leading-none whitespace-pre-wrap select-none opacity-80">
+            <pre className="text-yellow-400 font-bold text-[6px] sm:text-xs leading-[0.8] sm:leading-none whitespace-pre overflow-x-auto scrollbar-hide select-none opacity-80">
               {ASCII_LOGO}
             </pre>
             <div className="border-l-2 border-green-800 pl-4 py-2">
-              <h1 className="text-xl font-bold text-white mb-2">UCSC High Performance Computing Club</h1>
+              <h1 className="text-xl font-bold text-white mb-2">UC Santa Cruz High Performance Computing Club</h1>
               <p className="text-zinc-300 max-w-2xl">
-                We are a student-run organization dedicated to the study and application of supercomputing. 
-                We build clusters, optimize kernels, and compete on the global stage.
+                We are a student-run organization dedicated to solving the most computationally intensive problems in the world. 
+                We build clusters, optimize kernels, and get results.
               </p>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="bg-zinc-900/50 p-4 border border-zinc-800 rounded hover:border-green-500/50 transition-colors">
-                <h3 className="flex items-center gap-2 text-green-400 font-bold mb-2">
-                  <Activity size={16} /> Current Status
+                <h3 className="text-green-400 font-bold mb-2">
+                   Current Status
                 </h3>
                 <ul className="list-disc list-inside text-sm text-zinc-400 space-y-1">
-                  <li>Preparing for Winter Classic 2026</li>
+                  <li>Competing in Winter Classic 2026</li>
                   <li>Designing Single Board Cluster</li>
-                  <li>Seeking Industry Partners</li>
+                  <li>Seeking Industry Sponsors</li>
                 </ul>
               </div>
               <div className="bg-zinc-900/50 p-4 border border-zinc-800 rounded hover:border-green-500/50 transition-colors">
-                <h3 className="flex items-center gap-2 text-blue-400 font-bold mb-2">
-                  <Wifi size={16} /> Connection
+                <h3 className="text-blue-400 font-bold mb-2">
+                   Connection
                 </h3>
                 <p className="text-sm text-zinc-400">
                   You are logged into the public node of our virtual cluster. 
-                  Navigate the file system on the left to inspect our current operations.
+                  Navigate the file system on the left to check out what we've been up to!.
                 </p>
               </div>
             </div>
@@ -218,16 +214,9 @@ export default function App() {
                     <span className="text-zinc-600 ml-6 text-xs italic">{comp.linkText}</span>
                   )}
                   
-                  {comp.specs && (
-                    <div className="bg-zinc-950 border border-zinc-800 rounded p-3 ml-6 mt-3 space-y-1">
-                      {Object.entries(comp.specs).map(([key, value]) => (
-                        <div key={key} className="text-zinc-400 text-xs flex gap-2">
-                          <span className="text-purple-400 w-20">"{key}":</span> 
-                          <span className={key === 'Budget' ? 'text-yellow-300' : key === 'PowerLim' ? 'text-red-400' : 'text-zinc-300'}>
-                            {value}
-                          </span>
-                        </div>
-                      ))}
+                  {comp.details && (
+                    <div className="text-zinc-400 text-xs ml-6 mt-2 border-l border-zinc-700 pl-2">
+                      {comp.details}
                     </div>
                   )}
                 </div>
@@ -277,7 +266,7 @@ export default function App() {
           <div className="space-y-6 max-w-3xl animate-in fade-in zoom-in-95 duration-300">
              <div className="prose prose-invert prose-zinc max-w-none">
                 <p className="text-zinc-300 leading-relaxed mb-6">
-                   Our hardware is a sandbox for experimentation. We have two primary objectives for our cluster infrastructure moving forward:
+                  We have two primary objectives for our cluster moving forward:
                 </p>
                 <div className="space-y-6">
                    <div className="bg-zinc-900/50 p-5 border border-zinc-800 rounded-lg">
@@ -286,7 +275,7 @@ export default function App() {
                       </h3>
                       <p className="text-zinc-400 text-sm">
                          We aim to utilize our servers to recreate and verify results from current academia and published research papers. 
-                         By validating existing research on our own bare-metal hardware, members gain practical experience with complex benchmarking and computational science workflows.
+                         By validating existing research on our own bare-metal hardware, members gain practical experience with real world problems.
                       </p>
                    </div>
                    <div className="bg-zinc-900/50 p-5 border border-zinc-800 rounded-lg">
@@ -374,7 +363,7 @@ export default function App() {
       <div className="flex flex-1 overflow-hidden relative">
         
         {/* Sidebar Navigation */}
-        <div className="hidden md:flex flex-col w-64 bg-black border-r border-zinc-800 flex-shrink-0 shadow-xl z-10">
+        <div className="hidden md:flex flex-col w-48 bg-black border-r border-zinc-800 flex-shrink-0 shadow-xl z-10">
            <div className="p-4 text-xs font-bold text-zinc-500 uppercase tracking-wider border-b border-zinc-900 bg-zinc-950/50">
              /home/guest
            </div>
