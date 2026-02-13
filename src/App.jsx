@@ -16,10 +16,10 @@ const ASCII_LOGO = `
 
 const FILES = [
   { name: 'README.md', id: 'home' },
-  { name: 'COMPETITIONS.txt', id: 'competitions' },
+  { name: 'COMPETITIONS.info', id: 'competitions' },
   { name: 'HARDWARE.json', id: 'hardware' },
   { name: 'GOALS.md', id: 'goals' },
-  { name: 'CONTACT.txt', id: 'contact' },
+  { name: 'CONTACT.info', id: 'contact' },
 ];
 
 const BOOT_SEQUENCE = [
@@ -48,14 +48,17 @@ const COMPETITIONS_DATA = [
     name: "Single Board Cluster Comp",
     status: "active",
     subtitle: "Hosted by UCSD",
+    link: "https://single-board-cluster-competition.github.io/new-sbcc-site/main-page.html",
+    linkText: "singleboardclustercompetition.com",
     details: "Constraints: $6k Spending Cap, 250W Power Limit. We need hardware for this!!!"
   },
   {
     id: "indie25",
-    name: "Indie SCC Fall 2025",
+    name: "Indy SCC Fall 2025",
     status: "past",
     subtitle: "Student Cluster Competition",
-    linkText: "[Link Pending]"
+    link: "https://sc25.supercomputing.org/students/indyscc/",
+    linkText: "IndySCC"
   },
   {
     id: "wc25",
@@ -68,9 +71,9 @@ const COMPETITIONS_DATA = [
 // HARDWARE INVENTORY (Edit this to add/remove servers!)
 const HARDWARE_DATA = {
   inventory: [
-    { model: "Sunfire x2200", quantity: 2, status: "online", location: "E2 207" },
-    { model: "Dell Poweredge R515", quantity: 2, status: "online", location: "E2 207" },
-    { model: "Dell Poweredge R510", quantity: 1, status: "online", location: "E2 207" }
+    { model: "Sunfire x2200", quantity: 2, status: "offline", location: "E2 207" },
+    { model: "Dell Poweredge R515", quantity: 2, status: "offline", location: "E2 207" },
+    { model: "Dell Poweredge R510", quantity: 1, status: "offline", location: "E2 207" }
   ],
   total_nodes: 5,
   system_health: "could be better"
@@ -155,8 +158,8 @@ export default function App() {
             <div className="border-l-2 border-green-800 pl-4 py-2">
               <h1 className="text-xl font-bold text-white mb-2">UC Santa Cruz High Performance Computing Club</h1>
               <p className="text-zinc-300 max-w-2xl">
-                We are a student-run organization dedicated to solving the most computationally intensive problems in the world. 
-                We build clusters, optimize kernels, and get results.
+                We are a student-run organization dedicated to solving computationally intensive problems. 
+                We build clusters, optimize systems, and get results.
               </p>
             </div>
             
@@ -173,11 +176,11 @@ export default function App() {
               </div>
               <div className="bg-zinc-900/50 p-4 border border-zinc-800 rounded hover:border-green-500/50 transition-colors">
                 <h3 className="text-blue-400 font-bold mb-2">
-                   Connection
+                   Connection Success!
                 </h3>
                 <p className="text-sm text-zinc-400">
                   You are logged into the public node of our virtual cluster. 
-                  Navigate the file system on the left to check out what we've been up to!.
+                  Navigate the file system to check out what we've been up to!
                 </p>
               </div>
             </div>
@@ -269,7 +272,7 @@ export default function App() {
                   We have two primary objectives for our cluster moving forward:
                 </p>
                 <div className="space-y-6">
-                   <div className="bg-zinc-900/50 p-5 border border-zinc-800 rounded-lg">
+                   <div className="">
                       <h3 className="text-white font-bold text-lg mb-2 flex items-center gap-2">
                         Academic Replication
                       </h3>
@@ -278,7 +281,7 @@ export default function App() {
                          By validating existing research on our own bare-metal hardware, members gain practical experience with real world problems.
                       </p>
                    </div>
-                   <div className="bg-zinc-900/50 p-5 border border-zinc-800 rounded-lg">
+                   <div className="">
                       <h3 className="text-white font-bold text-lg mb-2 flex items-center gap-2">
                          Local LLMs
                       </h3>
