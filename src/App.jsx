@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Terminal, Cpu, Wifi, HardDrive, Shield, DollarSign, Users, ChevronRight, Activity, Power, X } from 'lucide-react';
+import { Terminal, Cpu, Wifi, HardDrive, Shield, DollarSign, Users, ChevronRight, Activity, Power, X, MapPin, Clock } from 'lucide-react';
 
 // --- Assets & Constants ---
 
@@ -16,6 +16,8 @@ const ASCII_LOGO = `
 
 const FILES = [
   { name: 'README.md', id: 'home' },
+  { name: 'JOIN.sh', id: 'join' },
+  { name: 'MEETINGS.txt', id: 'meetings' },
   { name: 'COMPETITIONS.info', id: 'competitions' },
   { name: 'HARDWARE.json', id: 'hardware' },
   { name: 'GOALS.md', id: 'goals' },
@@ -152,16 +154,14 @@ export default function App() {
       case 'home':
         return (
           <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
-            {/* UPDATED: overflow-hidden stops the scrollbar. 
-                text-[5px] makes it small enough to try to fit on mobile without scrolling.
-            */}
+            {/* UPDATED: overflow-hidden stops the scrollbar */}
             <pre className="text-yellow-400 font-bold text-[5px] sm:text-xs leading-[0.8] sm:leading-none whitespace-pre overflow-hidden select-none opacity-80">
               {ASCII_LOGO}
             </pre>
             <div className="border-l-2 border-green-800 pl-4 py-2">
               <h1 className="text-xl font-bold text-white mb-2">UC Santa Cruz High Performance Computing Club</h1>
               <p className="text-zinc-300 max-w-2xl">
-                We are a student-run organization dedicated to solving computationally intensive problems. 
+                We are Not-So-Slow-Slugs, a student-run organization dedicated to solving computationally intensive problems. 
                 We build clusters, optimize systems, and get results.
               </p>
             </div>
@@ -186,6 +186,82 @@ export default function App() {
                   Navigate the file system to check out what we've been up to!
                 </p>
               </div>
+            </div>
+          </div>
+        );
+
+      case 'join':
+        return (
+          <div className="space-y-6 max-w-3xl animate-in fade-in zoom-in-95 duration-300">
+              <div className="border-l-2 border-green-500 pl-4 py-2 mb-6">
+                  <h2 className="text-xl font-bold text-white">Initiation Task</h2>
+                  <p className="text-zinc-400 text-sm mt-1">
+				      To join Not-So-Slow-Slugs, you will have to log in to Hummingbird (UCSC's supercomputer) and add your name to ~/mthallet/club_roster.txt.
+                  </p>
+              </div>
+
+              <div className="bg-black border border-zinc-800 rounded p-4 font-mono text-sm relative group">
+                  <div className="absolute top-0 left-0 w-full h-8 bg-zinc-900 border-b border-zinc-800 flex items-center px-4 gap-2">
+                      <div className="w-3 h-3 rounded-full bg-red-500/20 border border-red-500/50"></div>
+                      <div className="w-3 h-3 rounded-full bg-yellow-500/20 border border-yellow-500/50"></div>
+                      <div className="w-3 h-3 rounded-full bg-green-500/20 border border-green-500/50"></div>
+                      <span className="ml-2 text-zinc-500 text-xs">guest@local:~/tasks</span>
+                  </div>
+                  <div className="mt-8 space-y-4 text-zinc-300">
+                      <div>
+                          <span className="text-green-500"># 1. SSH into Hummingbird</span>
+                          <div className="bg-zinc-900/50 p-2 mt-1 border-l-2 border-green-500/30">
+                              ssh &lt;cruzid&gt;@hummingbird.ucsc.edu
+                          </div>
+                      </div>
+
+                      <div>
+                          <span className="text-green-500"># 2. Append your details to the roster</span>
+                          <div className="text-zinc-500 text-xs italic mb-1">// Replace with your actual info</div>
+                          <div className="bg-zinc-900/50 p-2 mt-1 border-l-2 border-green-500/30">
+                              echo "First Last | email@ucsc.edu" &gt;&gt; /hbs/home/mthallet/club_roster.txt
+                          </div>
+                          <div className="text-red-400 text-xs mt-2">
+                              * Permission Denied? Email us. You shouldn't get this if you do it right.
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              
+              <div className="text-zinc-500 text-xs mt-4">
+                  * Note: You will need to be on the campus network (eduroam) or use the UCSC VPN to access Hummingbird.
+              </div>
+          </div>
+        );
+
+      case 'meetings':
+        return (
+          <div className="space-y-6 max-w-3xl animate-in fade-in zoom-in-95 duration-300">
+            <div className="bg-zinc-900 border border-zinc-800 p-6 rounded-sm">
+                <div className="flex items-start gap-4">
+                    <div className="flex-1">
+                        <h3 className="text-lg font-bold text-white mb-6">Weekly General Meeting</h3>
+                        
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-2">
+                            <div className="flex gap-3">
+                                <Clock className="w-5 h-5 text-green-500 mt-1" />
+                                <div>
+                                    <div className="text-xs font-bold text-zinc-500 uppercase tracking-wider mb-1">When</div>
+                                    <div className="text-zinc-200 font-mono">Wednesdays</div>
+                                    <div className="text-green-400 font-bold font-mono">4:00 PM - 5:00 PM</div>
+                                </div>
+                            </div>
+                            <div className="flex gap-3">
+                                <MapPin className="w-5 h-5 text-green-500 mt-1" />
+                                <div>
+                                    <div className="text-xs font-bold text-zinc-500 uppercase tracking-wider mb-1">Where</div>
+                                    <div className="text-zinc-200 font-mono">Baskin Engineering 2</div>
+                                    <div className="text-green-400 font-bold font-mono">Room 207</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
           </div>
         );
@@ -305,7 +381,7 @@ export default function App() {
                 <div className="bg-zinc-900 p-5 rounded border border-zinc-800">
                    <h3 className="text-white font-bold mb-3 uppercase tracking-wider text-sm text-zinc-500">Club Leadership</h3>
                    <div className="flex items-center justify-between border-b border-zinc-800 pb-2">
-                      <span className="text-zinc-300 font-bold">Myles Hallet</span>
+                      <span className="text-zinc-300 font-bold">Myles Hallett</span>
                       <span className="text-xs bg-zinc-800 text-zinc-400 px-2 py-1 rounded">President</span>
                    </div>
                    <div className="pt-2 text-sm">
@@ -327,7 +403,7 @@ export default function App() {
                       </div>
                       <div>
                          <div className="flex items-center justify-between border-b border-zinc-800 pb-2">
-                            <span className="text-zinc-300 font-bold">Abel Souza</span>
+                            <span className="text-zinc-300 font-bold">Abele Souza</span>
                             <span className="text-xs bg-zinc-800 text-zinc-400 px-2 py-1 rounded">Faculty</span>
                          </div>
                          <div className="pt-2 text-sm">
