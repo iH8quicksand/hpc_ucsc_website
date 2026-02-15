@@ -327,7 +327,7 @@ export default function App() {
                       </div>
                       <div>
                          <div className="flex items-center justify-between border-b border-zinc-800 pb-2">
-                            <span className="text-zinc-300 font-bold">Abele Souza</span>
+                            <span className="text-zinc-300 font-bold">Abel Souza</span>
                             <span className="text-xs bg-zinc-800 text-zinc-400 px-2 py-1 rounded">Faculty</span>
                          </div>
                          <div className="pt-2 text-sm">
