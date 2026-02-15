@@ -152,7 +152,10 @@ export default function App() {
       case 'home':
         return (
           <div className="space-y-6 animate-in fade-in slide-in-from-bottom-4 duration-500">
-            <pre className="text-yellow-400 font-bold text-[6px] sm:text-xs leading-[0.8] sm:leading-none whitespace-pre overflow-x-auto scrollbar-hide select-none opacity-80">
+            {/* UPDATED: overflow-hidden stops the scrollbar. 
+                text-[5px] makes it small enough to try to fit on mobile without scrolling.
+            */}
+            <pre className="text-yellow-400 font-bold text-[5px] sm:text-xs leading-[0.8] sm:leading-none whitespace-pre overflow-hidden select-none opacity-80">
               {ASCII_LOGO}
             </pre>
             <div className="border-l-2 border-green-800 pl-4 py-2">
