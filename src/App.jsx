@@ -16,7 +16,7 @@ const ASCII_LOGO = `
 
 const FILES = [
   { name: 'README.md', id: 'home' },
-  { name: 'JOIN.sh', id: 'join' },
+  { name: 'DISCORD.link', id: 'discord' },
   { name: 'MEETINGS.txt', id: 'meetings' },
   { name: 'COMPETITIONS.info', id: 'competitions' },
   { name: 'HARDWARE.json', id: 'hardware' },
@@ -190,46 +190,32 @@ export default function App() {
           </div>
         );
 
-      case 'join':
+      case 'discord':
         return (
           <div className="space-y-6 max-w-3xl animate-in fade-in zoom-in-95 duration-300">
-              <div className="border-l-2 border-green-500 pl-4 py-2 mb-6">
-                  <h2 className="text-xl font-bold text-white">Initiation Task</h2>
+              <div className="border-l-2 border-[#5865F2] pl-4 py-2 mb-6">
+                  <h2 className="text-xl font-bold text-white">Join the Community</h2>
                   <p className="text-zinc-400 text-sm mt-1">
-				      To join Not-So-Slow-Slugs, you will have to log in to Hummingbird (UCSC's supercomputer) and add your name to ~/mthallet/club_roster.txt.
+                      Connect with other Not-So-Slow-Slugs, get meeting announcements, and chat about high-performance computing!
                   </p>
               </div>
 
-              <div className="bg-black border border-zinc-800 rounded p-4 font-mono text-sm relative group">
-                  <div className="absolute top-0 left-0 w-full h-8 bg-zinc-900 border-b border-zinc-800 flex items-center px-4 gap-2">
-                      <div className="w-3 h-3 rounded-full bg-red-500/20 border border-red-500/50"></div>
-                      <div className="w-3 h-3 rounded-full bg-yellow-500/20 border border-yellow-500/50"></div>
-                      <div className="w-3 h-3 rounded-full bg-green-500/20 border border-green-500/50"></div>
-                      <span className="ml-2 text-zinc-500 text-xs">guest@local:~/tasks</span>
+              <div className="bg-zinc-900/50 border border-zinc-800 rounded p-8 flex flex-col items-center justify-center text-center">
+                  <div className="w-16 h-16 bg-[#5865F2] rounded-full flex items-center justify-center mb-4">
+                      <Users className="w-8 h-8 text-white" />
                   </div>
-                  <div className="mt-8 space-y-4 text-zinc-300">
-                      <div>
-                          <span className="text-green-500"># 1. SSH into Hummingbird</span>
-                          <div className="bg-zinc-900/50 p-2 mt-1 border-l-2 border-green-500/30">
-                              ssh &lt;cruzid&gt;@hummingbird.ucsc.edu
-                          </div>
-                      </div>
-
-                      <div>
-                          <span className="text-green-500"># 2. Append your details to the roster</span>
-                          <div className="text-zinc-500 text-xs italic mb-1">// Replace with your actual info</div>
-                          <div className="bg-zinc-900/50 p-2 mt-1 border-l-2 border-green-500/30">
-                              echo "First Last | email@ucsc.edu" &gt;&gt; /hbs/home/mthallet/club_roster.txt
-                          </div>
-                          <div className="text-red-400 text-xs mt-2">
-                              * Permission Denied? Email us. You shouldn't get this if you do it right.
-                          </div>
-                      </div>
-                  </div>
-              </div>
-              
-              <div className="text-zinc-500 text-xs mt-4">
-                  * Note: You will need to be on the campus network (eduroam) or use the UCSC VPN to access Hummingbird.
+                  <h3 className="text-white font-bold text-lg mb-2">Official Discord Server</h3>
+                  <p className="text-zinc-400 text-sm mb-6 max-w-md">
+                      This is our primary platform for all club communications, project discussions, and competition planning.
+                  </p>
+                  <a 
+                    href="https://discord.gg/XMzAkprgag" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="bg-[#5865F2] hover:bg-[#4752C4] text-white font-bold py-3 px-8 rounded transition-colors"
+                  >
+                    Join Server
+                  </a>
               </div>
           </div>
         );
@@ -426,7 +412,7 @@ export default function App() {
   if (!booted) {
     return (
       <div className="min-h-screen bg-black text-green-500 font-mono p-4 md:p-8 text-sm md:text-base flex flex-col justify-end pb-20">
-        <style>{`body, html { background-color: #09090b; margin: 0; padding: 0; height: 100%; }`}</style>
+        <style>{`body, html { background-color: #09090b; margin: 0; padding: 0; height: 100%; overscroll-behavior: none; }`}</style>
         {bootLines.map((line, i) => (
           <div key={i} className="mb-1">
             <span className="text-zinc-500">[{new Date().toLocaleTimeString()}]</span> {line}
@@ -441,7 +427,7 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100 font-mono flex flex-col overflow-hidden selection:bg-green-500/30 selection:text-green-200">
-      <style>{`body, html { background-color: #09090b; margin: 0; padding: 0; height: 100%; }`}</style>
+      <style>{`body, html { background-color: #09090b; margin: 0; padding: 0; height: 100%; overscroll-behavior: none; }`}</style>
       <div className="flex flex-1 overflow-hidden relative">
         
         {/* Sidebar Navigation */}
@@ -449,7 +435,7 @@ export default function App() {
            <div className="p-4 text-xs font-bold text-zinc-500 uppercase tracking-wider border-b border-zinc-900 bg-zinc-950/50">
              /home/guest
            </div>
-           <div className="flex-1 overflow-y-auto py-2">
+           <div className="flex-1 overflow-y-auto py-2 overscroll-none">
              {FILES.map(file => (
                <FileLink 
                   key={file.id} 
@@ -464,7 +450,7 @@ export default function App() {
         {/* Main Content Area */}
         <div className="flex-1 flex flex-col relative overflow-hidden bg-zinc-950">
             {/* Mobile Nav Header */}
-            <div className="md:hidden bg-zinc-900 border-b border-zinc-800 p-3 overflow-x-auto whitespace-nowrap flex gap-2 z-10">
+            <div className="md:hidden bg-zinc-900 border-b border-zinc-800 p-3 overflow-x-auto whitespace-nowrap flex gap-2 z-10 overscroll-none">
                 {FILES.map(file => (
                     <button 
                         key={file.id}
@@ -483,7 +469,7 @@ export default function App() {
             {/* Scrollable Output Container */}
             <div 
               ref={contentRef}
-              className="flex-1 overflow-y-auto p-4 md:p-8 scrollbar-thin scrollbar-thumb-zinc-700 scrollbar-track-transparent"
+              className="flex-1 overflow-y-auto p-4 md:p-8 scrollbar-thin scrollbar-thumb-zinc-700 scrollbar-track-transparent overscroll-none"
             >
                 {/* Simulated Command Execution Line */}
                 <div className="mb-6 flex items-center flex-wrap gap-2 text-sm sm:text-base font-mono border-b border-zinc-800/50 pb-4">
