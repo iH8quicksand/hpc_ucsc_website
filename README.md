@@ -1,16 +1,41 @@
-# React + Vite
+# Not-So-Slow-Slugs Club Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A terminal-themed website for UCSC's High Performance Computing Club. Boot into our virtual cluster, browse file directories, and check out what we're competing in.
 
-Currently, two official plugins are available:
+[Live on Vercel](https://hpc-ucsc-website.vercel.app/)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
 
-## React Compiler
+## About
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+I'm in UCSC's HPC club and we needed an actual website instead of a Google Sites page. Wanted something that felt like logging into a real cluster since that's what we actually do.
 
-## Expanding the ESLint configuration
+All the competition data and hardware inventory lives in JavaScript objects so future club leadership can update it without touching React.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Stack
+
+- React (hooks, no class components)
+- Tailwind CSS
+- Vite
+- Lucide icons
+
+## Implementation Notes
+
+**Boot Sequence**  
+Random delays between boot lines so it feels like actual server initialization. Once it finishes, you're "logged in" and can navigate the file system.
+
+**Responsive**  
+Desktop gets a sidebar, mobile gets horizontal pill navigation. Same state management, different layouts via Tailwind breakpoints.
+
+## Running Locally
+
+```bash
+npm install
+npm run dev
+```
+
+Builds with `npm run build` if you want to deploy your own fork.
+
+## Future
+
+- Could pull competition data from an API instead of static objects
+- Admin panel for content updates would be nice
