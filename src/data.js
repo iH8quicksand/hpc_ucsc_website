@@ -26,10 +26,9 @@ export const SITE_DATA = {
   // --- Home / About ---
   clubName: "UC Santa Cruz High Performance Computing Club",
   description: "We are Not-So-Slow-Slugs, a student-run organization dedicated to solving computationally intensive problems. We build clusters, optimize systems, and get results.",
-  currentStatus: [
-    "Competing in Winter Classic 2026",
-    "Competing in Single Board Cluster"
-  ],
+  // Active competitions are added to Current Status automatically.
+  // Add any other club updates here.
+  currentStatusNotes: [],
   connectionMessage: "You are logged into the public node of our virtual cluster. Navigate the file system to check out what we've been up to!",
 
   // --- External Links ---
@@ -38,8 +37,8 @@ export const SITE_DATA = {
 
   // --- Meetings ---
   meetingInfo: {
-    day: "Tuesday",
-    time: "5:15 PM - 6:15 PM",
+    day: "Monday",
+    time: "4:00 PM - 5:00 PM",
     building: "Baskin Engineering 2",
     room: "Room 207"
   },
@@ -47,17 +46,27 @@ export const SITE_DATA = {
   // --- Competitions ---
   competitions: [
     {
+      id: "scc-connect-26",
+      name: "SCC Connect 2026",
+      status: "active",
+      subtitle: "SC26 Virtual Student Cluster Competition",
+      link: "https://sc26.supercomputing.org/students/scc-connect/",
+      linkText: "SCC Connect at SC26",
+      details: "November 16–18, 2026"
+    },
+    {
       id: "wc26",
       name: "Winter Classic 2026",
-      status: "active",
+      status: "past",
       subtitle: "National Invitational",
+      result: "1st Place!",
       link: "https://www.winterclassicinvitational.com/",
       linkText: "winterclassicinvitational.com"
     },
     {
       id: "sbc",
       name: "Single Board Cluster Comp",
-      status: "active",
+      status: "past",
       subtitle: "Hosted by UCSD",
       link: "https://single-board-cluster-competition.github.io/new-sbcc-site/main-page.html",
       linkText: "singleboardclustercompetition.com",
@@ -81,13 +90,26 @@ export const SITE_DATA = {
 
   // --- Hardware Inventory ---
   hardware: {
-    inventory: [
-      { model: "Sunfire x2200", quantity: 2, status: "offline", location: "E2 207" },
-      { model: "Dell Poweredge R515", quantity: 2, status: "offline", location: "E2 207" },
-      { model: "Dell Poweredge R510", quantity: 1, status: "offline", location: "E2 207" }
-    ],
-    total_nodes: 5,
-    system_health: "could be better"
+    cluster_name: "Haydean",
+    get total_nodes() {
+      return Object.values(this.nodes).reduce((total, group) => total + group.quantity, 0);
+    },
+    nodes: {
+      workers: {
+        quantity: 4,
+        hostnames: ["haydean1", "haydean2", "haydean3", "haydean4"],
+        system: "Supermicro SYS-1019C-HTN2",
+        cpu: "Intel Xeon E-2176G (6 cores / 12 threads, up to 4.7 GHz per node)"
+      },
+      login: {
+        quantity: 1,
+        hostname: "haydeanlogin",
+        cpu: "To be documented"
+      }
+    },
+    gpus: [
+      { model: "AMD Radeon RX 9070 XT", quantity: 1 }
+    ]
   },
 
   // --- Goals ---

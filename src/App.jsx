@@ -1,12 +1,13 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Terminal, Cpu, Wifi, HardDrive, Shield, DollarSign, Users, ChevronRight, Activity, Power, X, MapPin, Clock } from 'lucide-react';
+import { Terminal, Cpu, Wifi, HardDrive, Shield, DollarSign, ChevronRight, Activity, Power, X, MapPin, Clock } from 'lucide-react';
 import { SITE_DATA, FILES } from './data.js'; // <-- Import the data here!
+import discordLogo from './assets/discord-logo-1-1-3902126490.png';
 
 // --- Helper Functions ---
 const syntaxHighlightJSON = (jsonObj) => {
   let json = JSON.stringify(jsonObj, null, 2);
   json = json.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-  return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+\-]?\d+)?)/g, function (match) {
+  return json.replace(/("(\\u[a-zA-Z0-9]{4}|\\[^u]|[^\\"])*"(\s*:)?|\b(true|false|null)\b|-?\d+(?:\.\d*)?(?:[eE][+-]?\d+)?)/g, function (match) {
       let cls = 'text-orange-400'; // Numbers
       if (/^"/.test(match)) {
           if (/:$/.test(match)) {
@@ -22,6 +23,13 @@ const syntaxHighlightJSON = (jsonObj) => {
       }
       return `<span class="${cls}">${match}</span>`;
   });
+};
+
+const resultColor = (result) => {
+  if (/^1st\b/i.test(result)) return 'text-yellow-400';
+  if (/^2nd\b/i.test(result)) return 'text-slate-300';
+  if (/^3rd\b/i.test(result)) return 'text-amber-700';
+  return 'text-zinc-400';
 };
 
 // --- Components ---
@@ -42,6 +50,11 @@ export default function App() {
   const [bootLines, setBootLines] = useState([]);
   const [activeSection, setActiveSection] = useState('home');
   const contentRef = useRef(null);
+  const activeCompetitions = SITE_DATA.competitions.filter(comp => comp.status === 'active');
+  const currentStatus = [
+    ...activeCompetitions.map(comp => `Competing in ${comp.name}`),
+    ...SITE_DATA.currentStatusNotes
+  ];
 
   // Boot Sequence Effect
   useEffect(() => {
@@ -82,9 +95,12 @@ export default function App() {
               <div className="bg-zinc-900/50 p-4 border border-zinc-800 rounded hover:border-green-500/50 transition-colors">
                 <h3 className="text-green-400 font-bold mb-2">Current Status</h3>
                 <ul className="list-disc list-inside text-sm text-zinc-400 space-y-1">
-                  {SITE_DATA.currentStatus.map((status, idx) => (
+                  {currentStatus.map((status, idx) => (
                     <li key={idx}>{status}</li>
                   ))}
+                  {currentStatus.length === 0 && (
+                    <li>No active competitions right now.</li>
+                  )}
                 </ul>
               </div>
               <div className="bg-zinc-900/50 p-4 border border-zinc-800 rounded hover:border-green-500/50 transition-colors">
@@ -99,9 +115,11 @@ export default function App() {
         return (
           <div className="space-y-6 max-w-3xl animate-in fade-in zoom-in-95 duration-300">
               <div className="bg-zinc-900/50 border border-zinc-800 rounded p-8 flex flex-col items-center justify-center text-center">
-                  <div className="w-16 h-16 bg-[#5865F2] rounded-full flex items-center justify-center mb-4">
-                      <Users className="w-8 h-8 text-white" />
-                  </div>
+                  <img
+                    src={discordLogo}
+                    alt="Discord"
+                    className="w-16 h-16 rounded-full object-cover mb-4"
+                  />
                   <h3 className="text-white font-bold text-lg mb-2">Official Discord Server</h3>
                   <p className="text-zinc-400 text-sm mb-6 max-w-md">{SITE_DATA.discordDescription}</p>
                   <a 
@@ -147,14 +165,14 @@ export default function App() {
           </div>
         );
 
-      case 'competitions':
-        const activeComps = SITE_DATA.competitions.filter(c => c.status === 'active');
+      case 'competitions': {
+        const activeComps = activeCompetitions;
         const pastComps = SITE_DATA.competitions.filter(c => c.status === 'past');
         
         return (
           <div className="space-y-6 max-w-3xl animate-in fade-in zoom-in-95 duration-300">
             <div className="space-y-4">
-              <h3 className="text-sm font-bold text-zinc-500 uppercase tracking-wider">Active Competitions (Current)</h3>
+              <h3 className="text-sm font-bold text-zinc-500 uppercase tracking-wider">Active Competitions (Current/Upcoming)</h3>
               {activeComps.map(comp => (
                 <div key={comp.id} className="bg-black border border-zinc-800 p-4 font-mono text-sm">
                   <div className="flex items-center justify-between mb-2">
@@ -165,6 +183,11 @@ export default function App() {
                     <div className="text-green-400">ONLINE</div>
                   </div>
                   <div className="text-zinc-500 ml-6">{comp.subtitle}</div>
+                  {comp.result && (
+                    <div className={`${resultColor(comp.result)} text-xs font-bold ml-6 mt-1`}>
+                      {comp.result}
+                    </div>
+                  )}
                   {comp.link && (
                     <a href={comp.link} target="_blank" rel="noopener noreferrer" className="text-green-500 hover:text-green-400 hover:underline ml-6 text-xs transition-colors">
                       {comp.linkText}
@@ -195,6 +218,11 @@ export default function App() {
                       <div className="text-zinc-500">OFFLINE</div>
                     </div>
                     <div className="text-zinc-600 ml-6">{comp.subtitle}</div>
+                    {comp.result && (
+                      <div className={`${resultColor(comp.result)} text-xs font-bold ml-6 mt-1`}>
+                        {comp.result}
+                      </div>
+                    )}
                     {comp.linkText && !comp.link && (
                       <span className="text-zinc-600 ml-6 text-xs italic">{comp.linkText}</span>
                     )}
@@ -204,6 +232,7 @@ export default function App() {
             )}
           </div>
         );
+      }
 
       case 'hardware':
         return (
@@ -309,9 +338,9 @@ export default function App() {
 
   // --- Main Interface ---
   return (
-    <div className="min-h-screen bg-zinc-950 text-zinc-100 font-mono flex flex-col overflow-hidden selection:bg-green-500/30 selection:text-green-200">
+    <div className="h-screen bg-zinc-950 text-zinc-100 font-mono flex flex-col overflow-hidden selection:bg-green-500/30 selection:text-green-200">
       <style>{`body, html { background-color: #09090b; margin: 0; padding: 0; height: 100%; overscroll-behavior: none; }`}</style>
-      <div className="flex flex-1 overflow-hidden relative">
+      <div className="flex flex-1 min-h-0 overflow-hidden relative">
         
         {/* Sidebar Navigation */}
         <div className="hidden md:flex flex-col w-48 bg-black border-r border-zinc-800 flex-shrink-0 shadow-xl z-10">
@@ -331,7 +360,7 @@ export default function App() {
         </div>
 
         {/* Main Content Area */}
-        <div className="flex-1 flex flex-col relative overflow-hidden bg-zinc-950">
+        <div className="flex-1 min-h-0 flex flex-col relative overflow-hidden bg-zinc-950">
             {/* Mobile Nav Header */}
             <div className="md:hidden bg-zinc-900 border-b border-zinc-800 p-3 overflow-x-auto whitespace-nowrap flex gap-2 z-10 overscroll-none">
                 {FILES.map(file => (
@@ -352,7 +381,7 @@ export default function App() {
             {/* Scrollable Output Container */}
             <div 
               ref={contentRef}
-              className="flex-1 overflow-y-auto p-4 md:p-8 scrollbar-thin scrollbar-thumb-zinc-700 scrollbar-track-transparent overscroll-none"
+              className="flex-1 min-h-0 overflow-y-auto p-4 md:p-8 scrollbar-thin scrollbar-thumb-zinc-700 scrollbar-track-transparent overscroll-contain touch-pan-y"
             >
                 {/* Simulated Command Execution Line */}
                 <div className="mb-6 flex items-center flex-wrap gap-2 text-sm sm:text-base font-mono border-b border-zinc-800/50 pb-4">
